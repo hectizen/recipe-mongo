@@ -13,16 +13,6 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler {
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception exception){
-        ModelAndView modelAndView = new ModelAndView();
-        log.debug("Number format exception : " + exception.getMessage());
-        modelAndView.addObject("exception", exception);
-        modelAndView.setViewName("400Error");
-        return modelAndView;
-    }
-
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFoundException(Exception exception){
