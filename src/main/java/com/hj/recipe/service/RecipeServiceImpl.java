@@ -7,6 +7,7 @@ import com.hj.recipe.domain.Recipe;
 import com.hj.recipe.exceptions.NotFoundException;
 import com.hj.recipe.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,8 +59,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        if(command.getId() == null || command.getId().isBlank()) {
+            command.setId((new ObjectId()).toString());
+        }
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
-
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);

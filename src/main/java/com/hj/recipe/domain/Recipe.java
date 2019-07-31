@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Document
+@Document(collection = "recipes")
 public class Recipe {
 
     @Id
